@@ -1,2 +1,5 @@
-package bark.client.controllers;public class LogIngestionController {
+package bark.client.controllers;
+
+public class LogIngestionController {
+
 }

@@ -2,6 +2,9 @@ package bark.client.models;
 
 import bark.client.constants.Global;
 import bark.client.http.Network;
+import bark.client.requestchannel.ClientChannel;
+import bark.client.services.ingestion.LogIngester;
+import bark.client.services.sender.LogSender;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,18 +53,20 @@ public class Config {
         this.sessionName = sessionName;
     }
     public static Config BarkClient(String baseUrl, String errorLevel, String serviceName, String sessionName) {
+        ClientChannel.createChannel();
+        LogSender logSender = new LogSender();
+        logSender.startSendingLogs(baseUrl);
         return new Config(baseUrl,errorLevel,serviceName,sessionName);
+
     }
 
     private void SendLogsToServer(String message, String errorLevel) throws IOException {
-//       List<BarkLog> list = new ArrayList<>();
-//       for (int i=0; i<10; i++) {
+//      List<BarkLog> list = new ArrayList<>();
+//       for (int i=0; i<10000; i++) {
            BarkLog barkLog = new BarkLog(
                    errorLevel, serviceName, sessionName, "12345", message);
-        //   list.add(barkLog);
-      // }
-        Network networkCall = new Network();
-
-        networkCall.postSingleLog(barkLog,baseUrl);
+//         list.add(barkLog);
+//       }
+        LogIngester.SendToClientChannel(barkLog);
     }
 }
