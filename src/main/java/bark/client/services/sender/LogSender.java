@@ -17,13 +17,14 @@ import java.util.concurrent.TimeUnit;
 public class LogSender {
 
     private String baseUrl = null;
+    private final int logBatchSizeStandard = 100;
     Network networkCall = new Network();
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
     Runnable task = () -> {
             int clientQueueSize = ClientChannel.ClientQueue.size();
-            if (clientQueueSize > 100) {
+            if (clientQueueSize >= logBatchSizeStandard) {
                 List<BarkLog> barkLogList = new ArrayList<>();
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < logBatchSizeStandard; i++) {
                     try {
                         barkLogList.add(ClientChannel.ClientQueue.poll());
                     } catch (Exception e){
@@ -35,7 +36,7 @@ public class LogSender {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            } else if (clientQueueSize > 0 && clientQueueSize < 100) {
+            } else if (clientQueueSize > 0 && clientQueueSize < logBatchSizeStandard) {
                 BarkLog barkLog = ClientChannel.ClientQueue.poll();
                 try {
                     networkCall.postSingleLog(barkLog, baseUrl + Global.singleInsertUrl);
