@@ -18,31 +18,38 @@ public class Config {
 
     public void Panic(String message) throws IOException {
         System.out.println(message);
-        SendLogsToServer(message,Global.Panic);
+        BarkLog log = new BarkLog(Global.Panic, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
     }
     public void Alert(String message) throws IOException {
         System.out.println(message);
-        SendLogsToServer(message,Global.Alert);
+        BarkLog log = new BarkLog(Global.Alert, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
     }
     public void Error(String message) throws IOException {
         System.out.println(message);
-        SendLogsToServer(message,Global.Error);
+        BarkLog log = new BarkLog(Global.Error, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
     }
     public void Warn(String message) throws IOException {
         System.out.println(message);
-        SendLogsToServer(message,Global.Warning);
+        BarkLog log = new BarkLog(Global.Warning, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
     }
     public void Notice(String message) throws IOException {
         System.out.println(message);
-        SendLogsToServer(message,Global.Notice);
+        BarkLog log = new BarkLog(Global.Notice, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
     }
     public void Info(String message) throws IOException {
         System.out.println(message);
-        SendLogsToServer(message,Global.Info);
+        BarkLog log = new BarkLog(Global.Info, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
     }
     public void Debug(String message) throws IOException {
         System.out.println(message);
-        SendLogsToServer(message,Global.Debug);
+        BarkLog log = new BarkLog(Global.Debug, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
     }
 
     public Config() {}
@@ -60,13 +67,7 @@ public class Config {
 
     }
 
-    private void SendLogsToServer(String message, String errorLevel) throws IOException {
-//      List<BarkLog> list = new ArrayList<>();
-//       for (int i=0; i<10000; i++) {
-           BarkLog barkLog = new BarkLog(
-                   errorLevel, serviceName, sessionName, "12345", message);
-//         list.add(barkLog);
-//       }
+    private void dispatchLogMessage(BarkLog barkLog) throws IOException {
         LogIngester.SendToClientChannel(barkLog);
     }
 }
