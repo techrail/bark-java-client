@@ -1,14 +1,11 @@
 package bark.client.models;
 
 import bark.client.constants.Global;
-import bark.client.http.Network;
 import bark.client.requestchannel.ClientChannel;
 import bark.client.services.ingestion.LogIngester;
 import bark.client.services.sender.LogSender;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Config {
     private String baseUrl;
@@ -49,6 +46,12 @@ public class Config {
     public void Debug(String message) throws IOException {
         System.out.println(message);
         BarkLog log = new BarkLog(Global.Debug, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+    }
+
+    public void Raw(RawLog rawLog) throws IOException {
+        BarkLog log = new BarkLog(rawLog.getLogLevel(),rawLog.getServiceName(), rawLog.getSessionName(), rawLog.getCode(), rawLog.getMessage());
+        log.setMoreData(rawLog.getMoreData());
         dispatchLogMessage(log);
     }
 

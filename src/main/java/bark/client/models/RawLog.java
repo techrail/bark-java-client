@@ -1,6 +1,5 @@
 package bark.client.models;
 
-import bark.client.constants.Global;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
