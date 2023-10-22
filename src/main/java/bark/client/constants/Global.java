@@ -12,5 +12,10 @@ public class Global {
     public static final String Notice  = "NOTICE";
     public static final String Info = "INFO";
     public static final String Debug = "DEBUG";
-
+    public static final String DefaultLogLevel = "INFO";
+    public static  final int MaxLogCodeLength = 16; // DB constraint
+    public static final int ClientServerUsageModeDisabled = 0;
+    public static final int ClientServerUsageModeRemoteServer = 1;
+    public static final int ClientServerUsageModeEmbedded = 2;
+    public static final String DisabledServerUrl = "http://0.0.0.0/";
 }

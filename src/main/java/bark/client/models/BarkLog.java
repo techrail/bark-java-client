@@ -25,6 +25,56 @@ public class BarkLog {
         this.code = code;
         this.message = message;
     }
+    public BarkLog() {}
 
+    public void setLogTime(Date logTime){
+        this.logTime = logTime;
+    }
+    public String getLogLevel() {
+        return logLevel;
+    }
 
+    public void setLogLevel(String logLevel) {
+        this.logLevel = logLevel;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getSessionName() {
+        return sessionName;
+    }
+
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public MoreData getMoreData() {
+        return moreData;
+    }
+
+    public void setMoreData(MoreData moreData) {
+        this.moreData = moreData;
+    }
 }
