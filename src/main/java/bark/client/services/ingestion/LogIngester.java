@@ -8,6 +8,10 @@ import java.util.concurrent.Executors;
 
 public class LogIngester {
     public static void SendToClientChannel(BarkLog barkLog) {
+        if(ClientChannel.ClientQueue == null){
+            System.out.println("E#1MFJIZ - Queue not initialized, Are you running Logger mode only?");
+            return;
+        }
         if(ClientChannel.ClientQueue.size()  < ClientChannel.ClientChannelCapacity - 1) {
             ClientChannel.ClientQueue.add(barkLog);
         }

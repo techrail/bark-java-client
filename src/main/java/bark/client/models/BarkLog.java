@@ -35,5 +35,27 @@ public class BarkLog {
         this.moreData = moreData;
     }
 
+    public Date getLogTime() {
+        return logTime;
+    }
 
+    public String getLogLevel() {
+        return logLevel;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public String getSessionName() {
+        return sessionName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

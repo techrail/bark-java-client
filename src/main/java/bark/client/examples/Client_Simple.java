@@ -5,18 +5,27 @@ import bark.client.constants.Global;
 import bark.client.models.Config;
 import bark.client.models.MoreData;
 import bark.client.models.RawLog;
+import bark.client.util.CustomLogFormatter;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.logging.FileHandler;
 
 import static bark.client.models.Config.BarkClient;
+import static bark.client.models.Config.NewLoggerBarkClient;
 
 public class Client_Simple {
 
     public static void main(String[] args) throws IOException {
-        Config logConf = BarkClient("http://localhost:8080/", Global.Info, "testSvc", "testSess");
+        Config logConf = BarkClient("http://localhost:8080/", Global.Info, "testSvc", "testSess", true);
+        FileHandler fileHandler = new FileHandler("output_logger.log");
+        fileHandler.setFormatter(new CustomLogFormatter());
+        logConf.clearHandlers(); // If this method is not called, it'll only append FileHandler to logger along with default ConsoleHandler i.e. Output will be on both file and console.
+        logConf.setLoggerHandler(fileHandler);
         simpleTest(logConf);
         rawLogMoreDataTest(logConf);
+
+        disableLogger();
     }
 
     public static void simpleTest(Config logConf) throws IOException {
@@ -64,5 +73,17 @@ public class Client_Simple {
         rawLog.setMoreData(moreData);
 
         logConf.Raw(rawLog);
+    }
+
+    public static void disableLogger() throws IOException {
+        Config logConf = BarkClient("http://localhost:8080/", Global.Info, "testSvc", "testSess", false);
+
+        logConf.Info("Hello Server. Not you Logger!");
+        logConf.Debug("Hello Server. Not you Logger!");
+        logConf.Panic("Hello Server. Not you Logger!");
+        logConf.Alert("Hello Server. Not you Logger!");
+        logConf.Warn("Hello Server. Not you Logger!");
+        logConf.Error("Hello Server. Not you Logger!");
+        logConf.Notice("Hello Server. Not you Logger!");
     }
 }

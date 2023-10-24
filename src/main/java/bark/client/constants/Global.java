@@ -14,5 +14,6 @@ public class Global {
     public static final String Debug = "DEBUG";
     public static final String DefaultLogCode = "000000";
     public static final String DefaultLogLevel = "INFO";
+    public static final String DisabledServerUrl = "http://0.0.0.0/";
 
 }
