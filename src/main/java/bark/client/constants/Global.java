@@ -12,5 +12,7 @@ public class Global {
     public static final String Notice  = "NOTICE";
     public static final String Info = "INFO";
     public static final String Debug = "DEBUG";
+    public static final String DefaultLogCode = "000000";
+    public static final String DefaultLogLevel = "INFO";
 
 }

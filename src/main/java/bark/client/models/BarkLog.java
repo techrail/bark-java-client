@@ -27,4 +27,13 @@ public class BarkLog {
     }
 
 
+    public MoreData getMoreData() {
+        return moreData;
+    }
+
+    public void setMoreData(MoreData moreData) {
+        this.moreData = moreData;
+    }
+
+
 }
