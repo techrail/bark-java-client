@@ -1,16 +1,18 @@
 package bark.client.models;
 
 import bark.client.constants.Global;
-import bark.client.http.Network;
 import bark.client.requestchannel.ClientChannel;
 import bark.client.services.ingestion.LogIngester;
 import bark.client.services.sender.LogSender;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+=======
+>>>>>>> bb330289b284c05e4b10ed08860d5f9464894a32
 
 public class Config {
     private int serverMode;
@@ -23,6 +25,7 @@ public class Config {
 
     public void Panic(String message) throws IOException {
         System.out.println(message);
+<<<<<<< HEAD
         BarkLog barkLog = parseMessage(getConfig(),message);
         barkLog.setLogLevel(Global.Panic);
         barkLog.setLogTime(new Date());
@@ -68,12 +71,42 @@ public class Config {
         barkLog.setLogTime(new Date());
         barkLog.setMoreData(new MoreData());
         DispatchLogMessage(barkLog);
+=======
+        BarkLog log = new BarkLog(Global.Panic, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+    }
+    public void Alert(String message) throws IOException {
+        System.out.println(message);
+        BarkLog log = new BarkLog(Global.Alert, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+    }
+    public void Error(String message) throws IOException {
+        System.out.println(message);
+        BarkLog log = new BarkLog(Global.Error, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+    }
+    public void Warn(String message) throws IOException {
+        System.out.println(message);
+        BarkLog log = new BarkLog(Global.Warning, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+    }
+    public void Notice(String message) throws IOException {
+        System.out.println(message);
+        BarkLog log = new BarkLog(Global.Notice, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+    }
+    public void Info(String message) throws IOException {
+        System.out.println(message);
+        BarkLog log = new BarkLog(Global.Info, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+>>>>>>> bb330289b284c05e4b10ed08860d5f9464894a32
     }
     public void Debug(String message) throws IOException {
         if(disableDebugLevelLogging){
             return;
         }
         System.out.println(message);
+<<<<<<< HEAD
         BarkLog barkLog = parseMessage(getConfig(),message);
         barkLog.setLogLevel(Global.Debug);
         barkLog.setLogTime(new Date());
@@ -103,6 +136,16 @@ public class Config {
     }
     public void Raw(BarkLog barkLog){
 
+=======
+        BarkLog log = new BarkLog(Global.Debug, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+        dispatchLogMessage(log);
+    }
+
+    public void Raw(RawLog rawLog) throws IOException {
+        BarkLog log = new BarkLog(rawLog.getLogLevel(),rawLog.getServiceName(), rawLog.getSessionName(), rawLog.getCode(), rawLog.getMessage());
+        log.setMoreData(rawLog.getMoreData());
+        dispatchLogMessage(log);
+>>>>>>> bb330289b284c05e4b10ed08860d5f9464894a32
     }
 
     public Config() {}
@@ -205,6 +248,7 @@ public class Config {
 
     }
 
+<<<<<<< HEAD
     private static String getLogLevelFromCharacter(String logLevel) {
         switch (logLevel.toUpperCase()) {
             case "P":
@@ -275,6 +319,9 @@ public class Config {
                 }
         }
 
+=======
+    private void dispatchLogMessage(BarkLog barkLog) throws IOException {
+>>>>>>> bb330289b284c05e4b10ed08860d5f9464894a32
         LogIngester.SendToClientChannel(barkLog);
     }
 

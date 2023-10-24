@@ -6,8 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class BarkLog {
-    private int id;
+public class RawLog {
     private Date logTime;
     private String logLevel;
     private String serviceName;
@@ -17,18 +16,22 @@ public class BarkLog {
     private String message;
     private MoreData moreData;
 
-    public BarkLog(String logLevel, String serviceName, String sessionName, String code, String message) {
+    public RawLog(String logLevel, String serviceName, String sessionName, String code, String message) {
         this.logLevel = logLevel;
         this.serviceName = serviceName;
         this.sessionName = sessionName;
         this.code = code;
         this.message = message;
     }
-    public BarkLog() {}
 
-    public void setLogTime(Date logTime){
+    public Date getLogTime() {
+        return logTime;
+    }
+
+    public void setLogTime(Date logTime) {
         this.logTime = logTime;
     }
+
     public String getLogLevel() {
         return logLevel;
     }
@@ -68,6 +71,7 @@ public class BarkLog {
     public void setMessage(String message) {
         this.message = message;
     }
+
     public MoreData getMoreData() {
         return moreData;
     }

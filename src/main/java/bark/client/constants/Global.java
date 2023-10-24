@@ -1,7 +1,5 @@
 package bark.client.constants;
 
-import javax.sound.sampled.Line;
-
 public class Global {
     public static final String  singleInsertUrl = "insertSingle";
     public static final String multipleInsertUrl  = "insertMultiple";
@@ -18,4 +16,6 @@ public class Global {
     public static final int ClientServerUsageModeRemoteServer = 1;
     public static final int ClientServerUsageModeEmbedded = 2;
     public static final String DisabledServerUrl = "http://0.0.0.0/";
+    public static final String DefaultLogCode = "000000";
+
 }
