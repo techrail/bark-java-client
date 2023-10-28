@@ -35,5 +35,17 @@ public class BarkLog {
         this.moreData = moreData;
     }
 
-
+    @Override
+    public String toString() {
+        return "BarkLog{" +
+                "id=" + id +
+                ", logTime=" + logTime +
+                ", logLevel='" + logLevel + '\'' +
+                ", serviceName='" + serviceName + '\'' +
+                ", sessionName='" + sessionName + '\'' +
+                ", code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                ", moreData=" + moreData +
+                '}';
+    }
 }

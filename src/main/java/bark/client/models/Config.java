@@ -12,6 +12,11 @@ public class Config {
     private String errorLevel;
     private  String serviceName;
     private String sessionName;
+    private Webhook webhook;
+
+    public void setAlertWebhook(Webhook webhook){
+        this.webhook = webhook;
+    }
 
     public void Panic(String message) throws IOException {
         System.out.println(message);
@@ -21,6 +26,11 @@ public class Config {
     public void Alert(String message) throws IOException {
         System.out.println(message);
         BarkLog log = new BarkLog(Global.Alert, this.serviceName, this.sessionName, Global.DefaultLogCode,message);
+
+        if(webhook!=null){
+            webhook.processWebhook(log);
+        }
+
         dispatchLogMessage(log);
     }
     public void Error(String message) throws IOException {
