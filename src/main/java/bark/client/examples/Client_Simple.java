@@ -1,10 +1,10 @@
 package bark.client.examples;
 
 
-import bark.client.constants.Global;
+import bark.client.constants.Constants;
+import bark.client.models.BarkLog;
 import bark.client.models.Config;
 import bark.client.models.MoreData;
-import bark.client.models.RawLog;
 import bark.client.util.CustomLogFormatter;
 import org.json.JSONObject;
 
@@ -12,20 +12,19 @@ import java.io.IOException;
 import java.util.logging.FileHandler;
 
 import static bark.client.models.Config.BarkClient;
-import static bark.client.models.Config.NewLoggerBarkClient;
 
 public class Client_Simple {
 
     public static void main(String[] args) throws IOException {
-        Config logConf = BarkClient("http://localhost:8080/", Global.Info, "testSvc", "testSess", true);
+        Config logConf = BarkClient("http://localhost:8080/", Constants.Info, "testSvc", "testSess", true,true);
         FileHandler fileHandler = new FileHandler("output_logger.log");
         fileHandler.setFormatter(new CustomLogFormatter());
         logConf.clearHandlers(); // If this method is not called, it'll only append FileHandler to logger along with default ConsoleHandler i.e. Output will be on both file and console.
         logConf.setLoggerHandler(fileHandler);
-        simpleTest(logConf);
-        rawLogMoreDataTest(logConf);
-
-        disableLogger();
+        //simpleTest(logConf);
+        //rawLogMoreDataTest(logConf);
+        disableBulkSend();
+        //disableLogger();
     }
 
     public static void simpleTest(Config logConf) throws IOException {
@@ -39,7 +38,7 @@ public class Client_Simple {
     }
 
     public static void rawLogMoreDataTest(Config logConf) throws IOException {
-        RawLog rawLog = new RawLog(Global.DefaultLogLevel, "testSvc", "testSess",Global.DefaultLogCode, "Hello Raw");
+        BarkLog rawLog = new BarkLog(Constants.DefaultLogLevel, "testSvc", "testSess","00000", "Hello Raw");
         MoreData moreData = new MoreData();
 
         String json = "{\n" +
@@ -76,7 +75,7 @@ public class Client_Simple {
     }
 
     public static void disableLogger() throws IOException {
-        Config logConf = BarkClient("http://localhost:8080/", Global.Info, "testSvc", "testSess", false);
+        Config logConf = BarkClient("http://localhost:8080/", Constants.Info, "testSvc", "testSess", false,false);
 
         logConf.Info("Hello Server. Not you Logger!");
         logConf.Debug("Hello Server. Not you Logger!");
@@ -85,5 +84,11 @@ public class Client_Simple {
         logConf.Warn("Hello Server. Not you Logger!");
         logConf.Error("Hello Server. Not you Logger!");
         logConf.Notice("Hello Server. Not you Logger!");
+    }
+
+    public static void disableBulkSend() throws IOException {
+        Config logger =  BarkClient("http://localhost:8080/", "INFO", "testSvc",
+                "svc2",false, false);
+        logger.Error("Disabled bulk send");
     }
 }

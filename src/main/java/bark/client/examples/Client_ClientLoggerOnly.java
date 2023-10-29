@@ -1,6 +1,6 @@
 package bark.client.examples;
 
-import bark.client.constants.Global;
+import bark.client.constants.Constants;
 import bark.client.models.Config;
 import bark.client.util.CustomLogFormatter;
 
@@ -11,7 +11,7 @@ import static bark.client.models.Config.NewLoggerBarkClient;
 
 public class Client_ClientLoggerOnly {
     public static void main(String[] args) throws IOException {
-        Config logConf = NewLoggerBarkClient(Global.Info);
+        Config logConf = NewLoggerBarkClient(Constants.Info);
         FileHandler fileHandler = new FileHandler("output_logger.log", true);
         fileHandler.setFormatter(new CustomLogFormatter());
         logConf.setLoggerHandler(fileHandler);

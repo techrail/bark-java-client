@@ -12,20 +12,62 @@ public class BarkLog {
     private Date logTime;
     private String logLevel;
     private String serviceName;
-    private String sessionName;
+    private String serviceInstanceName;
     private String code;
     @JsonProperty("msg")
     private String message;
     private MoreData moreData;
 
-    public BarkLog(String logLevel, String serviceName, String sessionName, String code, String message) {
+    public BarkLog(String logLevel, String serviceName, String serviceInstanceName, String code, String message) {
         this.logLevel = logLevel;
         this.serviceName = serviceName;
-        this.sessionName = sessionName;
+        this.serviceInstanceName = serviceInstanceName;
         this.code = code;
         this.message = message;
     }
 
+    public BarkLog() {}
+
+    public void setLogTime(Date logTime){
+        this.logTime = logTime;
+    }
+    public String getLogLevel() {
+        return logLevel;
+    }
+    public void setLogLevel(String logLevel) {
+        this.logLevel = logLevel;
+    }
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getServiceInstanceName() {
+        return serviceInstanceName;
+    }
+
+    public void setServiceInstanceName(String serviceInstanceName) {
+        this.serviceInstanceName = serviceInstanceName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public MoreData getMoreData() {
         return moreData;
@@ -33,29 +75,5 @@ public class BarkLog {
 
     public void setMoreData(MoreData moreData) {
         this.moreData = moreData;
-    }
-
-    public Date getLogTime() {
-        return logTime;
-    }
-
-    public String getLogLevel() {
-        return logLevel;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public String getSessionName() {
-        return sessionName;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
     }
 }
